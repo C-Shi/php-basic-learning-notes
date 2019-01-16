@@ -16,7 +16,25 @@
       // validated email
       if(filter_var($email, FILTER_VALIDATE_EMAIL)){
           // Passed
-        echo 'passed';
+          // set Recipient Email
+          $toEmail = "kyleshi82@gmail.com";
+          $subject = 'Contact Request From '. $name;
+          $body = '<h2>Contact Request</h2><h4>Thank you</h4>';
+
+          // Email Headers
+          $headers = "MIME-Version: 1.0". "\r\n";
+          $headers .= "Content-Type: text/html;charset=UTF-8". "\r\n";
+
+          // Addtional headers
+          $headers .= "From: ". $name . "<" . $email. ">". "\r\n";
+
+          if(mail($toEmail, $subject, $body, $headers)){
+              $msg = 'Email sent';
+              $msgClass = 'alert-success';
+          } else {
+              $msg = 'Email not sent';
+              $msgClass = 'alert-danger';
+          }
       } else {
         // failed
         $msg = 'Please use valid email';
